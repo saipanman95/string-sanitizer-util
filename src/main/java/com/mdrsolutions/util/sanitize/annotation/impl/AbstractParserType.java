@@ -91,11 +91,12 @@ public class AbstractParserType implements ParserTypes {
     }
 
     private static String wrapp(String charString) {
-        if (charString.contains("<") || charString.contains(">")) {
-            return "(?i)" + charString + "([^>]+)(.+?)";
-        } else {
-            return "\\b(" + charString + ")\\W";
-        }
+        //if (charString.contains("<") || charString.contains(">")) {
+        //    return "(?i)" + charString + "([^>]+)(.+?)";
+        //} else {
+        //    return "\\b(" + charString + ")\\W";
+        //}
+        return charString;
     }
 
     private static String replaceULAll(String charString, String pattern, String replaceWith) {
