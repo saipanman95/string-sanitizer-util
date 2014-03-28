@@ -41,6 +41,17 @@ public class SanitizeAnnotationParser extends AbstractParserType implements Pars
      */
     public static Object stripParser(Object parserObj) {
         if (null != parserObj) {
+            try {
+                if (parserObj.getClass().isInstance("")){
+                    String name = parserObj.getClass().getName();
+                    parserObj = (Object)AbstractParserType.replaceHtmlJavascript(parserObj.toString());
+                    if (doesMethodExist(name,parserObj, METHOD_TYPE.GETTER)) {
+                        parserObj = StripObject(name, parserObj);
+                    }
+                }
+            } catch (Throwable ex) {
+                logger.logrb(Level.WARNING, SanitizerAnnotationParser.class.getSimpleName(), "stripParser(Object parserObj)", null, "ATTENTION!!! STRIP ANNOTATION PARSER ERROR:  Encountered error attempting to determin if declaredField isInstance of ", ex);
+            }
             for (Field declaredField : parserObj.getClass().getDeclaredFields()) {
                 try {
                     if (declaredField.getType().isInstance("")) {
